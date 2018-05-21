@@ -6,66 +6,56 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 @Entity
-public class Veiculo implements Serializable{
+public class Cidade implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	//@Column(name="PLACA_DC")
-	private String placa;
-	private String marca;
-	private String modelo;
-	private String ano;
+	private String nome;
 	
-	public Veiculo() {
-	}
-	
-	public Veiculo(Long id, String placa, String marca, String modelo, String ano) {
+	@ManyToOne
+	@JoinColumn(name="estado_id")
+	private Estado estado;
+
+	public Cidade(Long id, String nome, Estado estado) {
 		super();
 		this.id = id;
-		this.placa = placa;
-		this.marca = marca;
-		this.modelo = modelo;
-		this.ano = ano;
+		this.nome = nome;
+		this.estado = estado;
+	}
+	
+	public Cidade() {
+		
 	}
 
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getPlaca() {
-		return placa;
+
+	public String getNome() {
+		return nome;
 	}
-	public void setPlaca(String placa) {
-		this.placa = placa;
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
-	public String getMarca() {
-		return marca;
+
+	public Estado getEstado() {
+		return estado;
 	}
-	public void setMarca(String marca) {
-		this.marca = marca;
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
-	public String getModelo() {
-		return modelo;
-	}
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
-	}
-	public String getAno() {
-		return ano;
-	}
-	public void setAno(String ano) {
-		this.ano = ano;
-	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -73,6 +63,7 @@ public class Veiculo implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -81,7 +72,7 @@ public class Veiculo implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Veiculo other = (Veiculo) obj;
+		Cidade other = (Cidade) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -89,7 +80,6 @@ public class Veiculo implements Serializable{
 			return false;
 		return true;
 	}
-	
 	
 	
 }

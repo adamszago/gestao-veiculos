@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.una.veiculos.model.Veiculo;
 import br.una.veiculos.repository.VeiculoRepository;
+import br.una.veiculos.service.exceptions.ObjectNotFoundException;
 
 @Service
 public class VeiculoService {
@@ -16,6 +17,6 @@ public class VeiculoService {
 	
 	public Veiculo buscarPorId(Long id) {
 		Optional<Veiculo> obj = repositorio.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Veículo com ID: " + id + " não encontrado"));
 	}
 }

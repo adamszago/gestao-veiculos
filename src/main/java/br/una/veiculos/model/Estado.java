@@ -1,14 +1,16 @@
 package br.una.veiculos.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
 @Entity
-public class Veiculo implements Serializable{
+public class Estado implements Serializable{
 
 	/**
 	 * 
@@ -17,55 +19,45 @@ public class Veiculo implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	//@Column(name="PLACA_DC")
-	private String placa;
-	private String marca;
-	private String modelo;
-	private String ano;
+	private String nome;
 	
-	public Veiculo() {
+	@OneToMany(mappedBy="estado")
+	private List<Cidade> cidades = new ArrayList<Cidade>();
+	
+	public Estado() {
+		
 	}
-	
-	public Veiculo(Long id, String placa, String marca, String modelo, String ano) {
+
+	public Estado(Long id, String nome) {
 		super();
 		this.id = id;
-		this.placa = placa;
-		this.marca = marca;
-		this.modelo = modelo;
-		this.ano = ano;
+		this.nome = nome;
 	}
 
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getPlaca() {
-		return placa;
+
+	public String getNome() {
+		return nome;
 	}
-	public void setPlaca(String placa) {
-		this.placa = placa;
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
-	public String getMarca() {
-		return marca;
+
+	public List<Cidade> getCidades() {
+		return cidades;
 	}
-	public void setMarca(String marca) {
-		this.marca = marca;
+
+	public void setCidades(List<Cidade> cidades) {
+		this.cidades = cidades;
 	}
-	public String getModelo() {
-		return modelo;
-	}
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
-	}
-	public String getAno() {
-		return ano;
-	}
-	public void setAno(String ano) {
-		this.ano = ano;
-	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -73,6 +65,7 @@ public class Veiculo implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -81,7 +74,7 @@ public class Veiculo implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Veiculo other = (Veiculo) obj;
+		Estado other = (Estado) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -89,7 +82,6 @@ public class Veiculo implements Serializable{
 			return false;
 		return true;
 	}
-	
 	
 	
 }
